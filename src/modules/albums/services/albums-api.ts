@@ -1,16 +1,16 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 
-export class TrackAPI extends RESTDataSource {
+export class AlbumAPI extends RESTDataSource {
     constructor() {
         super();
-        this.baseURL = process.env.TRACKS_URL;
+        this.baseURL = process.env.ALBUMS_URL;
     }
 
-    async getTrackByID(id: string) {
+    async getAlbumByID(id: string) {
         return this.get(`/${id}`);
     }
 
-    async getTracks() {
+    async getAlbums() {
         const data = await this.get('/');
         return data.items;
     }
