@@ -9,19 +9,24 @@ export const typeDefUsers = gql `
         email: String!
     }
 
+    input RegisterUserInput {
+        firstName: String
+        lastName: String
+        password: String!
+        email: String!
+    }
+
+    type Login {
+        token: String
+    }
+
     type Query {
         user(id: ID!): User
+        jwt(email: String!, password: String!): Login
+    }
+
+    type Mutation {
+        register(registerUserInput: RegisterUserInput): User
     }
 
 `
-
-// input UserContent {
-//     firstName: String
-//     lastName: String
-//     password: String
-//     email: String
-// }
-
-// type Mutation {
-//     register(register: String, content: UserContent): User
-// }

@@ -1,6 +1,7 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 
 export class ArtistAPI extends RESTDataSource {
+
     constructor() {
         super();
         this.baseURL = process.env.ARTISTS_URL;
@@ -11,7 +12,13 @@ export class ArtistAPI extends RESTDataSource {
     }
 
     async getArtists() {
-        const data = await this.get('/');
-        return data.items;
+        const res = await this.get('/');
+        return res.items;
+    }
+
+    async createArtist(createArtistInput: any) {
+        console.log(createArtistInput);
+        const res = await this.post('', createArtistInput);
+        return res.data;
     }
 }
