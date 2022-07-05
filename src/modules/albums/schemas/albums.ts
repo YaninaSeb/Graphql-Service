@@ -12,6 +12,11 @@ export const typeDefAlbums = gql `
         image: String
     }
 
+    type DELETE {
+        acknowledged: Boolean
+        deletedCount: Int
+    }
+
     type Query {
         album(id: ID!): Album
         albums(limit: Int, offset: Int): [Album]
@@ -29,10 +34,7 @@ export const typeDefAlbums = gql `
 //         image: String
 //     }
 
-//     type DEL {
-//         acknowledged: Boolean
-//         deletedCount: Int
-//     }
+
 
 //     type Mutation {
 //         createAlbum(content: AlbumContent): Album

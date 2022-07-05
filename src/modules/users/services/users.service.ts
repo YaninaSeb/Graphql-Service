@@ -1,6 +1,7 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 
 export class UserAPI extends RESTDataSource {
+
     constructor() {
         super();
         this.baseURL = process.env.USERS_URL;
@@ -10,8 +11,9 @@ export class UserAPI extends RESTDataSource {
         return this.get(`/${id}`);
     }
 
-    async registerUser(userdata: any) {
-        const data = await this.post('/register', {...userdata});
+    async registerUser(userData: any) {
+        const data = await this.post('/register', {...userData});
+        // data.lastName = data.secondName;
         return data;
     }
 
@@ -21,8 +23,6 @@ export class UserAPI extends RESTDataSource {
             password
         });
         this.context.token = data.jwt
-        console.log(this.context.token);
-        return data
+        return data;
     }
-
 }

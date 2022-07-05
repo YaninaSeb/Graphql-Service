@@ -9,10 +9,15 @@ export const resolversArtists = {
     },
 
     Mutation: {
-        createArtist: async (_ : undefined , createArtistInput: any , { dataSources }: any) => {
+        createArtist: async (_ : undefined , { createArtistInput }: any , { dataSources }: any) => {
             return await dataSources.ArtistAPI.createArtist(createArtistInput);
         },
-
+        updateArtist: async (_ : undefined , { updateArtistInput } : { updateArtistInput: any} , { dataSources }: any) => {
+            return await dataSources.ArtistAPI.updateArtist(updateArtistInput);
+        },
+        deleteArtist: async (_ : undefined , { id } : { id: string} , { dataSources }: any) => {
+            return await dataSources.ArtistAPI.deleteArtist(id);
+        },
     },
    
     Artist:  {
