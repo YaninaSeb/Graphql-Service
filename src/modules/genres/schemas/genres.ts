@@ -9,22 +9,30 @@ export const typeDefGenres = gql `
         year: Int
     }
 
+    input CreateGenreInput {
+        name: String
+        description: String
+        country: String
+        year: Int
+    }
+
+    input UpdateGenreInput {
+        id: ID!
+        name: String
+        description: String
+        country: String
+        year: Int
+    }
+
     type Query {
         genre(id: ID!): Genre
         genres(limit: Int, offset: Int): [Genre]
     }
 
+    type Mutation {
+        createGenre(createGenreInput: CreateGenreInput): Genre!
+        updateGenre(updateGenreInput: UpdateGenreInput): Genre!
+        deleteGenre(id:ID!): DELETE
+    }
+
 `
-
-// input GenreContent {
-//     name: String
-//     description: String
-//     country: String
-//     year: Int
-// }
-
-// type Mutation {
-//     createGenre(content: GenreContent): Genre
-//     deleteGenre(id: ID!): DEL
-//     updateGenre(id: ID!, content: GenreContent): Genre
-// }
