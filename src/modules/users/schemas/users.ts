@@ -28,5 +28,4 @@ export const typeDefUsers = gql `
     type Mutation {
         register(registerUserInput: RegisterUserInput!): User
     }
-
 `

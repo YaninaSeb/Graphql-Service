@@ -4,11 +4,33 @@ export const typeDefTracks = gql `
     type Track {
         id: ID!
         title: String!
-        albums: [Album]
+        album: Album
+        artists: [Artist]
         bands: [Band]
         duration: Int
         released: Int
         genres: [Genre]
+    }
+
+    input CreateTrackInput {
+        title: String!
+        albumId: ID
+        artistsIds: [ID]
+        bandsIds: [ID]
+        duration: Int
+        released: Int
+        genresIds: [ID]
+    }
+
+    input UpdateTrackInput {
+        id: ID!
+        title: String!
+        albumId: ID
+        artistsIds: [ID]
+        bandsIds: [ID]
+        duration: Int
+        released: Int
+        genresIds: [ID]
     }
 
     type Query {
@@ -16,19 +38,9 @@ export const typeDefTracks = gql `
         tracks(limit: Int, offset: Int): [Track]
     }
 
+    type Mutation {
+        createTrack(createTrackInput: CreateTrackInput): Track!
+        updateTrack(updateTrackInput: UpdateTrackInput): Track!
+        deleteTrack(id: ID!): DELETE
+    }
 `
-
-// input TrackContent {
-//     title: String
-//     albumId: String
-//     bandsIds: [String]
-//     duration: Int
-//     released: Int
-//     genresIds: [String]
-// }
-
-// type Mutation {
-//     createTrack(content: TrackContent): Track
-//     deleteTrack(id: ID!): DEL
-//     updateTrack(id: ID!, content: TrackContent): Track
-// }

@@ -17,27 +17,35 @@ export const typeDefAlbums = gql `
         deletedCount: Int
     }
 
+    input CreateAlbumInput {
+        name: String
+        released: Int
+        artistsIds: [ID]
+        bandsIds: [ID]
+        tracksIds: [ID]
+        genresIds: [ID]
+        image: String
+    }
+
+    input UpdateAlbumInput {
+        id: ID!
+        name: String
+        released: Int
+        artistsIds: [ID]
+        bandsIds: [ID]
+        tracksIds: [ID]
+        genresIds: [ID]
+        image: String
+    }
+
     type Query {
         album(id: ID!): Album
         albums(limit: Int, offset: Int): [Album]
     }
 
+    type Mutation {
+        createAlbum(createAlbumInput: CreateAlbumInput): Album!
+        updateAlbum(updateAlbumInput: UpdateAlbumInput): Album!
+        deleteAlbum(id: ID!): DELETE
+    }
 `
-
-// input AlbumContent {
-//         name: String
-//         released: Int
-//         artistsIds: String
-//         bandsIds: String
-//         trackIds: String
-//         genresIds: String
-//         image: String
-//     }
-
-
-
-//     type Mutation {
-//         createAlbum(content: AlbumContent): Album
-//         deleteAlbum(id: ID!): DEL
-//         updateAlbum(id: ID!, content: AlbumContent): Album
-//     }
