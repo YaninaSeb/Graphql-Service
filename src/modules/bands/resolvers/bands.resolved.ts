@@ -21,6 +21,26 @@ export const resolversBands = {
     },
     
     Band:  {
-        id: (parent: any) => parent._id
+        id: (parent: any) => parent._id,
+
+        // members: async (parent: any, _: any, { dataSources }: any) => {
+        //     const data = await Promise.all(
+        //         parent.membersIds.map(async (id: string) => {
+        //             const arrBand = await dataSources.BandAPI.getBandByID(id);
+        //             return arrBand
+        //         })
+        //     );
+        //     return data;
+        // }
+
+        genres: async (parent: any, _: any, { dataSources }: any) => {
+            const data = await Promise.all(
+                parent.genresIds.map(async (id: string) => {
+                    const arrGenres = await dataSources.GenreAPI.getGenreByID(id);
+                    return arrGenres
+                })
+            );
+            return data;
+        }
     }
 }

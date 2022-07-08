@@ -1,3 +1,5 @@
+import { ArtistAPI } from "../services/artists.service";
+
 export const resolversArtists = {
     Query: {
         artist: async (_ : undefined , { id } : { id: string} , { dataSources }: any) => {
@@ -21,6 +23,16 @@ export const resolversArtists = {
     },
    
     Artist:  {
-        id: (parent: any) => parent._id
+        id: (parent: any) => parent._id,
+
+        bands: async (parent: any, _: any, { dataSources }: any) => {
+            const data = await Promise.all(
+                parent.bandsIds.map(async (id: string) => {
+                    const arrBand = await dataSources.BandAPI.getBandByID(id);
+                    return arrBand
+                })
+            );
+            return data;
+        }
     }
 }

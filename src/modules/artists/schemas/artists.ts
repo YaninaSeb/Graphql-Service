@@ -14,12 +14,12 @@ export const typeDefArtists = gql `
     }
 
     input CreateArtistInput {
-        firstName: String
-        secondName: String
-        middleName: String
+        firstName: String!
+        secondName: String!
+        middleName: String!
         birthDate: String
         birthPlace: String
-        country: String
+        country: String!
         bandsIds: [ID]
         instruments: [String]
     }

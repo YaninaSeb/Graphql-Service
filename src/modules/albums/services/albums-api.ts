@@ -24,6 +24,7 @@ export class AlbumAPI extends RESTDataSource {
         const res = await this.post(`/`, {...createAlbumInput});
         res.artists = res.artistsIds;
         res.bands = res.bandsIds;
+        res.tracks = res.trackIds;
         res.genres = res.genresIds;
         return res;
     }
@@ -32,6 +33,7 @@ export class AlbumAPI extends RESTDataSource {
         const res = await this.put(`/${updateAlbumInput.id}`, {...updateAlbumInput});
         res.artists = res.artistsIds;
         res.bands = res.bandsIds;
+        res.tracks = res.trackIds;
         res.genres = res.genresIds;
         return res;
     }

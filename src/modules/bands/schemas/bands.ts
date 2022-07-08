@@ -11,9 +11,9 @@ export const typeDefBands = gql `
     }
 
     type Member {
-        artist: String
+        artist: ID!
         instrument: String
-        years: String
+        years: [String]
     }
 
     input CreateBandInput {
