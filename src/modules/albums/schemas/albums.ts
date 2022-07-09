@@ -33,7 +33,7 @@ export const typeDefAlbums = gql `
         released: Int
         artistsIds: [ID]
         bandsIds: [ID]
-        tracksIds: [ID]
+        trackIds: [ID]
         genresIds: [ID]
         image: String
     }

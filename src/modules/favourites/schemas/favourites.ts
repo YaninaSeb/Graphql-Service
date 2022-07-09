@@ -10,7 +10,20 @@ export const typeDefFavourites = gql `
         tracks: [Track]
     }
 
-    type Query {
-        favourites(limit: Int, offset: Int): [Favourites]
+    input AddToFavouritesInput {
+        id: ID!
+        type: String
     }
+
+    type Query {
+        favourites(limit: Int, offset: Int): Favourites
+    }
+
+    type Mutation {
+        addTrackToFavourites(addTrackInput: AddToFavouritesInput): Favourites!
+        addBandToFavourites(addBandInput: AddToFavouritesInput): Favourites!
+        addArtistToFavourites(addArtistInput: AddToFavouritesInput): Favourites!
+        addGenreToFavourites(addGenreInput: AddToFavouritesInput): Favourites!
+    }
+
 `

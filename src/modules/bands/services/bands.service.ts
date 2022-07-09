@@ -22,14 +22,14 @@ export class BandAPI extends RESTDataSource {
 
     async createBand(createBandInput: any) {
         const res = await this.post('/', {...createBandInput});
-        res.members = res.membersIds;
+        res.members = res.membersId;
         res.genres = res.genresIds;
         return res;
     }
 
     async updateBand(updateBandInput: any) {
         const res = await this.put(`/${updateBandInput.id}`, {...updateBandInput});
-        res.members = res.membersIds;
+        res.members = res.membersId;
         res.genres = res.genresIds;
         return res;
     }

@@ -67,5 +67,5 @@ export interface IFavorite {
     bandsIds: string[];
     genresIds: string[];
     artistsIds: string[];
-    tracksIds: string[];
+    trackIds: string[];
 }

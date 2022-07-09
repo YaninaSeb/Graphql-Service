@@ -26,13 +26,15 @@ export const resolversArtists = {
         id: (parent: any) => parent._id,
 
         bands: async (parent: any, _: any, { dataSources }: any) => {
-            const data = await Promise.all(
-                parent.bandsIds.map(async (id: string) => {
-                    const arrBand = await dataSources.BandAPI.getBandByID(id);
-                    return arrBand
-                })
-            );
-            return data;
+            const arrBands: any = [];
+            if (parent.bandsIds && parent.bandsIds.length > 0) {
+                parent.bandsIds.forEach((id: string) => {
+                    const band = dataSources.BandAPI.getBandByID(id);
+                    arrBands.push(band);
+                });
+                return arrBands;
+            }
+            return arrBands;
         }
     }
 }

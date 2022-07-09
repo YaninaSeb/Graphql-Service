@@ -11,6 +11,12 @@ export const typeDefBands = gql `
     }
 
     type Member {
+        artist: Artist
+        instrument: String
+        years: [String]
+    }
+
+    input MemberInput {
         artist: ID!
         instrument: String
         years: [String]
@@ -19,7 +25,7 @@ export const typeDefBands = gql `
     input CreateBandInput {
         name: String
         origin: String
-        membersIds: [ID]
+        membersId: [ID]
         website: String
         genresIds: [ID]
     }
@@ -28,7 +34,7 @@ export const typeDefBands = gql `
         id:ID!
         name: String
         origin: String
-        membersIds: [ID]
+        membersId: [ID]
         website: String
         genresIds: [ID]
     }

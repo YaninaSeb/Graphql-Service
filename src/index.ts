@@ -8,6 +8,7 @@ import { BandAPI } from './modules/bands/services/bands.service';
 import { GenreAPI } from './modules/genres/services/genres.service';
 import { TrackAPI } from './modules/tracks/services/tracks.service';
 import { UserAPI } from './modules/users/services/users.service';
+import { FavouriteAPI } from './modules/favourites/services/favourites-api';
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ const server =  new ApolloServer({
             GenreAPI: new GenreAPI(),
             TrackAPI: new TrackAPI(),
             UserAPI: new UserAPI(),
+            FavouriteAPI: new FavouriteAPI()
         }
     },
     csrfPrevention: true,

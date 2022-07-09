@@ -34,13 +34,15 @@ export const resolversBands = {
         // }
 
         genres: async (parent: any, _: any, { dataSources }: any) => {
-            const data = await Promise.all(
-                parent.genresIds.map(async (id: string) => {
-                    const arrGenres = await dataSources.GenreAPI.getGenreByID(id);
-                    return arrGenres
-                })
-            );
-            return data;
+            const arrGenres: any = [];
+            if (parent.genresIds && parent.genresIds.length > 0) {
+                parent.genresIds.forEach((id: string) => {
+                    const genre = dataSources.GenreAPI.getGenreByID(id);
+                    arrGenres.push(genre);
+                });
+                return arrGenres;
+            }
+            return arrGenres;
         }
     }
 }

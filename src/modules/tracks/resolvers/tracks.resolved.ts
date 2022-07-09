@@ -29,33 +29,39 @@ export const resolversTracks = {
         },
 
         artists: async (parent: any, _: any, { dataSources }: any) => {
-            const data = await Promise.all(
-                parent.artistsIds.map(async (id: string) => {
-                    const arrArtists = await dataSources.ArtistAPI.getArtistByID(id);
-                    return arrArtists
-                })
-            );
-            return data;
+            const arrArtists: any = [];
+            if (parent.artistsIds && parent.artistsIds.length > 0) {
+                parent.artistsIds.forEach((id: string) => {
+                    const artist = dataSources.ArtistAPI.getArtistByID(id);
+                    arrArtists.push(artist);
+                });
+                return arrArtists;
+            }
+            return arrArtists;
         },
 
         bands: async (parent: any, _: any, { dataSources }: any) => {
-            const data = await Promise.all(
-                parent.bandsIds.map(async (id: string) => {
-                    const arrBands = await dataSources.BandAPI.getBandByID(id);
-                    return arrBands
-                })
-            );
-            return data;
+            const arrBands: any = [];
+            if (parent.bandsIds && parent.bandsIds.length > 0) {
+                parent.bandsIds.forEach((id: string) => {
+                    const band = dataSources.BandAPI.getBandByID(id);
+                    arrBands.push(band);
+                });
+                return arrBands;
+            }
+            return arrBands;
         },
 
         genres: async (parent: any, _: any, { dataSources }: any) => {
-            const data = await Promise.all(
-                parent.genresIds.map(async (id: string) => {
-                    const arrGenres = await dataSources.GenreAPI.getGenreByID(id);
-                    return arrGenres
-                })
-            );
-            return data;
-        },
+            const arrGenres: any = [];
+            if (parent.genresIds && parent.genresIds.length > 0) {
+                parent.genresIds.forEach((id: string) => {
+                    const genre = dataSources.GenreAPI.getGenreByID(id);
+                    arrGenres.push(genre);
+                });
+                return arrGenres;
+            }
+            return arrGenres;
+        }
     }
 }
