@@ -3,8 +3,8 @@ export const resolversAlbums = {
         album: async (_ : undefined , { id } : { id: string} , { dataSources}: any) => {
             return dataSources.AlbumAPI.getAlbumByID(id);
         },
-        albums: async (_ : undefined , __ : Record<string,never> , { dataSources }: any) => {
-            return dataSources.AlbumAPI.getAlbums();
+        albums: async (_ : undefined , { limit, offset } :  { limit: number, offset: number } , { dataSources }: any) => {
+            return dataSources.AlbumAPI.getAlbums(limit, offset);
         }
     },
 

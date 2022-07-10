@@ -5,8 +5,8 @@ export const resolversArtists = {
         artist: async (_ : undefined , { id } : { id: string} , { dataSources }: any) => {
             return await dataSources.ArtistAPI.getArtistByID(id);
         },
-        artists: async (_ : undefined , __ : Record<string,never> , { dataSources }: any) => {
-            return await dataSources.ArtistAPI.getArtists();
+        artists: async (_ : undefined , { limit, offset } :  { limit: number, offset: number } , { dataSources }: any) => {
+            return await dataSources.ArtistAPI.getArtists(limit, offset);
         }
     },
 

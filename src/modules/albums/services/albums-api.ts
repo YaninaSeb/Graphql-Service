@@ -2,21 +2,24 @@ const { RESTDataSource } = require('apollo-datasource-rest');
 
 export class AlbumAPI extends RESTDataSource {
 
-    willSendRequest(request: any) {
-        request.headers.set('Authorization', `${this.context.token}`);
-    }
-
     constructor() {
         super();
         this.baseURL = process.env.ALBUMS_URL;
+    }
+
+    willSendRequest(request: any) {
+        request.headers.set('Authorization', `${this.context.token}`);
     }
 
     async getAlbumByID(id: string) {
         return await this.get(`/${id}`);
     }
 
-    async getAlbums() {
-        const data = await this.get('/');
+    async getAlbums(limit = 5, offset = 0) {
+        const data = await this.get('/', {
+            limit,
+            offset
+        });
         return data.items;
     }
 

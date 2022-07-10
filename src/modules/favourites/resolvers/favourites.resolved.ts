@@ -6,17 +6,19 @@ export const resolversFavourites = {
     },
 
     Mutation: {
-        addTrackToFavourites: async (_ : undefined , { addTrackInput } : any , { dataSources }: any) => {
-            return await dataSources.FavouriteAPI.addTrack(addTrackInput);
+        addTrackToFavourites: async (_ : undefined , { id } : { id: string} , { dataSources }: any) => {
+            let res =  await dataSources.FavouriteAPI.addTrack(id);
+            res.tracks = res.tracksIds;
+            return res
         },
-        addBandToFavourites: async (_ : undefined , { addBandInput } : any , { dataSources }: any) => {
-            return await dataSources.FavouriteAPI.addBand(addBandInput);
+        addBandToFavourites: async (_ : undefined , { id } : { id: string} , { dataSources }: any) => {
+            return await dataSources.FavouriteAPI.addBand(id);
         },
-        addArtistToFavourites: async (_ : undefined , { addArtistInput } : any , { dataSources }: any) => {
-            return await dataSources.FavouriteAPI.addArtist(addArtistInput);
+        addArtistToFavourites: async (_ : undefined , { id } : { id: string} , { dataSources }: any) => {
+            return await dataSources.FavouriteAPI.addArtist(id);
         },
-        addGenreToFavourites: async (_ : undefined , { addGenreInput } : any , { dataSources }: any) => {
-            return await dataSources.FavouriteAPI.addGenre(addGenreInput);
+        addGenreToFavourites: async (_ : undefined , { id } : { id: string} , { dataSources }: any) => {
+            return await dataSources.FavouriteAPI.addGenre(id);
         }
     },
     
@@ -61,8 +63,8 @@ export const resolversFavourites = {
 
         tracks: async (parent: any, _: any, { dataSources }: any) => {
             const arrTracks: any = [];
-            if (parent.trackIds && parent.trackIds.length > 0) {
-                parent.trackIds.forEach((id: string) => {
+            if (parent.tracksIds && parent.tracksIds.length > 0) {
+                parent.tracksIds.forEach((id: string) => {
                     const track = dataSources.TrackAPI.getTrackByID(id);
                     arrTracks.push(track);
                 });

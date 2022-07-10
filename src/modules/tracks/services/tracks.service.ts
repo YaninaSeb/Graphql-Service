@@ -2,21 +2,24 @@ const { RESTDataSource } = require('apollo-datasource-rest');
 
 export class TrackAPI extends RESTDataSource {
 
-    willSendRequest(request: any) {
-        request.headers.set('Authorization', `${this.context.token}`);
-    }
-
     constructor() {
         super();
         this.baseURL = process.env.TRACKS_URL;
+    }
+
+    willSendRequest(request: any) {
+        request.headers.set('Authorization', `${this.context.token}`);
     }
 
     async getTrackByID(id: string) {
         return await this.get(`/${id}`);
     }
 
-    async getTracks() {
-        const data = await this.get('/');
+    async getTracks(limit = 5, offset = 0) {
+        const data = await this.get('/', {
+            limit,
+            offset
+        });
         return data.items;
     }
 

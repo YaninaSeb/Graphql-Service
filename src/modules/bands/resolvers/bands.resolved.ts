@@ -3,8 +3,8 @@ export const resolversBands = {
         band: async (_ : undefined , { id } : { id: string} , { dataSources}: any) => {
             return await dataSources.BandAPI.getBandByID(id);
         },
-        bands: async (_ : undefined , __ : Record<string,never> , { dataSources }: any) => {
-            return await dataSources.BandAPI.getBands();
+        bands: async (_ : undefined , { limit, offset } :  { limit: number, offset: number } , { dataSources }: any) => {
+            return await dataSources.BandAPI.getBands(limit, offset);
         }
     },
 
@@ -23,15 +23,33 @@ export const resolversBands = {
     Band:  {
         id: (parent: any) => parent._id,
 
-        // members: async (parent: any, _: any, { dataSources }: any) => {
-        //     const data = await Promise.all(
-        //         parent.membersIds.map(async (id: string) => {
-        //             const arrBand = await dataSources.BandAPI.getBandByID(id);
-        //             return arrBand
-        //         })
-        //     );
-        //     return data;
-        // }
+        members: async (parent: any, _: any, { dataSources }: any) => {
+            const arrMembers: any = [];
+            if (parent.members && parent.members.length > 0) {
+                parent.members.forEach( async (elem: any) => {
+                    const artist = await dataSources.ArtistAPI.getArtistByID(elem.artist);
+                    const instrument = elem.instrument;
+                    const years = elem.years;
+                    const member = {...artist, instrument, years}
+                    arrMembers.push(member);
+                })
+
+                // return arrMembers;
+            }
+            return arrMembers;
+        },
+
+        // artist: async (parent: any, _: any, { dataSources }: any) => {
+        //     const arrArtists: any = [];
+        //     if (parent.artist && parent.artist.length > 0) {
+        //         parent.artist.forEach((id: string) => {
+        //             const artist = dataSources.ArtistAPI.getArtistByID(id);
+        //             arrArtists.push(artist);
+        //         });
+        //         return arrArtists;
+        //     }
+        //     return arrArtists;
+        // },
 
         genres: async (parent: any, _: any, { dataSources }: any) => {
             const arrGenres: any = [];

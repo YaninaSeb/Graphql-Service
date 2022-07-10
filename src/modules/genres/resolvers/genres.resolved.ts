@@ -3,8 +3,8 @@ export const resolversGenres = {
         genre: async (_ : undefined , { id } : { id: string} , { dataSources}: any) => {
             return await dataSources.GenreAPI.getGenreByID(id);
         },
-        genres: async (_ : undefined , __ : Record<string,never> , { dataSources }: any) => {
-            return await dataSources.GenreAPI.getGenres();
+        genres: async (_ : undefined , { limit, offset } :  { limit: number, offset: number } , { dataSources }: any) => {
+            return await dataSources.GenreAPI.getGenres(limit, offset);
         }
     },
 

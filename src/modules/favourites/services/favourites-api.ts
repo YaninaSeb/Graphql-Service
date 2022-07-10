@@ -2,13 +2,13 @@ const { RESTDataSource } = require('apollo-datasource-rest');
 
 export class FavouriteAPI extends RESTDataSource {
 
-    willSendRequest(request: any) {
-        request.headers.set('Authorization', `${this.context.token}`);
-    }
-
     constructor() {
         super();
         this.baseURL = process.env.FAVOURITES_URL;
+    }
+
+    willSendRequest(request: any) {
+        request.headers.set('Authorization', `${this.context.token}`);
     }
 
     async getFavourites() {
@@ -21,20 +21,32 @@ export class FavouriteAPI extends RESTDataSource {
         }
     }
 
-    async addTrack(addTrackInput: any) {
-        await this.put('/add', {...addTrackInput})
+    async addTrack(id: string) {
+        return await this.put('/add', {
+            id,
+            type: "tracks"
+        })
     }
 
-    async addBand(addBandInput: any) {
-        await this.put('/add', {...addBandInput})
+    async addBand(id: string) {
+       return await this.put('/add', {
+            id,
+            type: "bands"
+        })
     }
 
-    async addArtist(addArtistInput: any) {
-        await this.put('/add', {...addArtistInput})
+    async addArtist(id: string) {
+        const res = await this.put('/add', {
+            id,
+            type: "artists"
+        })
+        return res
     }
 
-    async addGenre(addGenreInput: any) {
-        await this.put('/add', {...addGenreInput})
+    async addGenre(id: string) {
+        return await this.put('/add', {
+            id,
+            type: "genres"
+        })
     }
-
 }

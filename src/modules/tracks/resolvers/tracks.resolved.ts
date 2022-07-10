@@ -3,8 +3,8 @@ export const resolversTracks = {
         track: async (_ : undefined , { id } : { id: string} , { dataSources}: any) => {
             return dataSources.TrackAPI.getTrackByID(id);
         },
-        tracks: async (_ : undefined , __ : Record<string,never> , { dataSources }: any) => {
-            return dataSources.TrackAPI.getTracks();
+        tracks: async (_ : undefined , { limit, offset } :  { limit: number, offset: number } , { dataSources }: any) => {
+            return dataSources.TrackAPI.getTracks(limit, offset);
         }
     },
 

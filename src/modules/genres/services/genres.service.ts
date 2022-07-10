@@ -2,21 +2,24 @@ const { RESTDataSource } = require('apollo-datasource-rest');
 
 export class GenreAPI extends RESTDataSource {
 
-    willSendRequest(request: any) {
-        request.headers.set('Authorization', `${this.context.token}`);
-    }
-
     constructor() {
         super();
         this.baseURL = process.env.GENRES_URL;
+    }
+
+    willSendRequest(request: any) {
+        request.headers.set('Authorization', `${this.context.token}`);
     }
 
     async getGenreByID(id: string) {
         return this.get(`/${id}`);
     }
 
-    async getGenres() {
-        const data = await this.get('/');
+    async getGenres(limit = 5, offset = 0) {
+        const data = await this.get('/', {
+            limit,
+            offset
+        });
         return data.items;
     }
 

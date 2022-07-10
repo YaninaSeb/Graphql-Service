@@ -13,7 +13,6 @@ export class UserAPI extends RESTDataSource {
 
     async registerUser(userData: any) {
         const data = await this.post('/register', {...userData});
-        // data.lastName = data.secondName;
         return data;
     }
 
