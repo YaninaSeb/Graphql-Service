@@ -15,11 +15,6 @@ export const typeDefBands = gql `
         firstName: String
         secondName: String
         middleName: String
-        birthDate: String
-        birthPlace: String
-        country: String
-        bands: [Band]
-        instruments: [String]
         instrument: String
         years: [String]
     }

@@ -24,32 +24,21 @@ export const resolversBands = {
         id: (parent: any) => parent._id,
 
         members: async (parent: any, _: any, { dataSources }: any) => {
-            const arrMembers: any = [];
             if (parent.members && parent.members.length > 0) {
-                parent.members.forEach( async (elem: any) => {
-                    const artist = await dataSources.ArtistAPI.getArtistByID(elem.artist);
+                const res = await parent.members.map(async (elem: any) => {
+                    const artist =  await dataSources.ArtistAPI.getArtistByID(elem.artist);
+                    const id = artist._id;
+                    const firstName = artist.firstName;
+                    const secondName = artist.secondName;
+                    const middleName = artist.middleName;
                     const instrument = elem.instrument;
                     const years = elem.years;
-                    const member = {...artist, instrument, years}
-                    arrMembers.push(member);
-                })
-
-                // return arrMembers;
+                    return {id, firstName, secondName, middleName, instrument, years}
+                });
+                return res;
             }
-            return arrMembers;
+            return [];
         },
-
-        // artist: async (parent: any, _: any, { dataSources }: any) => {
-        //     const arrArtists: any = [];
-        //     if (parent.artist && parent.artist.length > 0) {
-        //         parent.artist.forEach((id: string) => {
-        //             const artist = dataSources.ArtistAPI.getArtistByID(id);
-        //             arrArtists.push(artist);
-        //         });
-        //         return arrArtists;
-        //     }
-        //     return arrArtists;
-        // },
 
         genres: async (parent: any, _: any, { dataSources }: any) => {
             const arrGenres: any = [];
