@@ -1,21 +1,113 @@
 # Graphql-Service
 
-## Installing
-1. git clone https://github.com/YaninaSeb/Graphql-Service.git
-2. git checkout develop
-3. npm install
+### ***Учебный проект из курса [The Rolling Scopes School  NodeJS](https://rs.school/nodejs/)***  
+***Выполнен:  июль 2022***  
 
-## Starting
-1. ```npm run start``` or ```npm run start:dev```
-2. open http://localhost:3000/graphql
+## Описание проекта
+Cервис для управления и получения данных для различных сущностей.   
+[Ссылка на задание](https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/graphql-service/assignment.md)   
+[Ссылка на репозиторий с микросервисами](https://github.com/rolling-scopes-school/node-graphql-service)   
+
+## Инструкция по установке и запуску микросервисов
+Клонировать репозиторий
+
+   ```git clone https://github.com/rolling-scopes-school/node-graphql-service.git```   
+
+
+Скопировать и переименовать файл `env.example` в `.env`
+
+
+Установить зависимости   
+
+   ```npm install```   
+
+Запустить     
+
+   ```npm run run:all``` 
+
+## Инструкция по установке и запуску сервиса
+Клонировать репозиторий   
+
+   ```git clone https://github.com/YaninaSeb/Graphql-Service.git```   
+
+Перейти на ветку разработки   
+
+   ```git checkout develop```   
+
+Установить зависимости   
+
+   ```npm install```   
+
+Запустить     
+
+   ```npm run start``` 
  
+или   
 
-## Using
+   ```npm run start:dev```
+   
+   
+   
+Cервер запустится на http://localhost:3000/graphql
 
-### Users module
 
-- **register**
-    ```
+## Реализованные запросы и мутации:
+<details><summary><b>Запросы</b></summary> 
+
+ - artist
+ - artists
+ - genre
+ - genres
+ - track
+ - tracks
+ - band
+ - bands
+ - album
+ - albums
+ - jwt
+ - user
+ - favourites (доступно только авторизованным пользователям)
+ 
+</details>
+
+<details><summary><b>Мутации</b></summary>
+
+ - Artists   
+     - createArtist
+     - deleteArtist
+     - updateArtist
+ - Genres
+     - createGenre
+     - deleteGenre
+     - updateGenre
+ - Bands
+     - createBand
+     - deleteBand
+     - updateBand
+ - Tracks
+     - createTrack
+     - deleteTrack
+     - updateTrack
+ - Albums
+     - createAlbum
+     - deleteAlbum
+     - updateAlbum
+ - Users
+     - register
+ - Favourites
+     - addTrackToFavourites
+     - addBandToFavourites
+     - addArtistToFavourites
+     - addGenreToFavourites
+
+</details>
+
+
+
+## Примеры запросов и мутаций
+
+<details><summary><b>register</b></summary>
+    
     mutation Register($registerUserInput: RegisterUserInput!) {
         register(registerUserInput: $registerUserInput) {
             id
@@ -25,10 +117,10 @@
             email
         }
     }
-    ```
+    
 
-    *input example*
-    ```
+*input example*
+    
     {
         "registerUserInput": {
             "firstName": "Yana",
@@ -37,10 +129,10 @@
             "email": "yana@mail.ru"
         }
     }
-    ```
+    
 
-    *response example*
-    ```
+*response example*
+    
     {
         "data": {
             "register": {
@@ -52,29 +144,27 @@
             }
         }
     }
-    ```
 
+</details>
 
+    
+<details><summary><b>jwt</b></summary>
 
-- **jwt**
-    ```
     query Jwt($email: String!, $password: String!) {
         jwt(email: $email, password: $password) {
             token
         }
     }
-    ```
 
-    *input example*
-    ```
+*input example*
+    
     {
         "email": "yana@mail.ru"
         "password": "ZyfZyf123",
     }
-    ```
 
-    *response example*
-    ```
+*response example*
+    
     {
         "data": {
             "jwt": {
@@ -82,14 +172,12 @@
             }
         }
     }
-    ```
+
+</details>
 
 
+<details><summary><b>user</b></summary>
 
-
-
-- **user**
-    ```
     query User($userId: ID!) {
         user(id: $userId) {
             id
@@ -99,17 +187,17 @@
             email
         }
     }
-    ```
+    
 
-    *input example*
-    ```
+*input example*
+    
     {
         "userId": "62cb2faa2366405ad98a9ac8"
     }
-    ```
+    
 
-    *response example*
-    ```
+*response example*
+    
     {
         "data": {
             "user": {
@@ -121,12 +209,11 @@
             }
         }
     }
-    ```
+    
+</details>
 
-### Artist module
+<details><summary><b>artist</b></summary>
 
-- **artist**
-    ```
     query Artist($artistId: ID!) {
         artist(id: $artistId) {
             id
@@ -143,17 +230,16 @@
             instruments
         }
     }
-    ```
 
-    *input example*
-    ```
+*input example*
+    
     {
         "artistId": "62c35bfd31bf00d02598cb22"
     }
-    ```
+    
 
-    *response example*
-    ```
+*response example*
+    
     "data": {
         "artist": [
         {
@@ -173,10 +259,12 @@
             "instruments": ["electric guitar"]
         }
     }
-    ```
+    
+</details>
 
-- **artists**
-    ```
+
+<details><summary><b>artists</b></summary>
+
     query Artists {
         artists {
             id
@@ -193,10 +281,9 @@
             instruments
         }
     }
-    ```
 
-    *response example*
-    ```
+*response example*
+    
     "data": {
         "artists": [
         {
@@ -232,10 +319,12 @@
             "instruments": ["bass guitar", "guitar"]
         }
     }
-    ```
 
-- **createArtist**
-   ```
+</details>
+
+
+<details><summary><b>createArtist</b></summary>
+
     mutation CreateArtist($createArtistInput: CreateArtistInput!) {
         createArtist(createArtistInput: $createArtistInput) {
             id
@@ -251,9 +340,9 @@
             instruments
         }
     }
-    ```
-    *input example*
-    ```
+    
+*input example*
+    
     {
         "createArtistInput": {
             "firstName": "Adam",
@@ -266,17 +355,15 @@
             "instruments": ["electric guitar"]
         }
     }
-    ```
 
-    *Headers*
-    ```
+*Headers*
+    
     {
         "Authorization": "Bearer {token_string}"
     }
-    ```
 
-    *response example*
-    ```
+*response example*
+    
     "data": {
         "createArtist": [
         {
@@ -296,10 +383,12 @@
             "instruments": ["electric guitar"]
         }
     }
-    ```
+    
+</details>
 
-- **updateArtist**
-    ```
+
+<details><summary><b>updateArtist</b></summary>
+
     mutation UpdateArtist($updateArtistInput: UpdateArtistInput) {
         updateArtist(updateArtistInput: $updateArtistInput) {
             id
@@ -315,10 +404,9 @@
             instruments
         }
     }
-    ```
 
-    *input example*
-    ```
+*input example*
+    
     {
         "updateArtistInput": {
             "id": "62c35bfd31bf00d02598cb22"
@@ -328,17 +416,16 @@
             "instruments": ["electric guitar", "guitar"]
         }
     }
-    ```
 
-    *Headers*
-    ```
+*Headers*
+    
     {
         "Authorization": "Bearer {token_string}"
     }
-    ```
+    
 
-    *response example*
-    ```
+*response example*
+    
     "data": {
         "updateArtist": [
         {
@@ -349,34 +436,33 @@
             "instruments": ["electric guitar", "guitar"]
         }
     }
-    ```
+    
+</details>
 
-- **deleteArtist**
-    ```
+
+<details><summary><b>deleteArtist</b></summary>
+
     mutation DeleteArtist($deleteArtistId: ID!) {
         deleteArtist(id: $deleteArtistId) {
             acknowledged
             deletedCount
         }
     }
-    ```
 
-    *input example*
-    ```
+*input example*
+    
     {
         "deleteArtistId": "62c35bfd31bf00d02598cb22"
     }
-    ```
 
-    *Headers*
-    ```
+*Headers*
+
     {
         "Authorization": "Bearer {token_string}"
     }
-    ```
 
-    *response example*
-    ```
+*response example*
+    
     {
         "data": {
             "deleteArtist": {
@@ -385,6 +471,7 @@
             }
         }
     }
-    ```
+    
+</details>
 
-### Analogue usage for Genres module, Bands module, Tracks module, Albums module, Favourites module
+
